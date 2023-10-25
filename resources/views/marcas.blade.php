@@ -17,11 +17,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-                                <td>Malcolm Lockyer</td>
-                                <td>1961</td>
-                            </tr>
+                            @foreach($marcas as $marca)
+                                <td>{{$marca->id}}</td>
+                                <td>{{$marca->name}}</td>
+                                <td>
+                                    <a href="{{route('marca.destroy', $marca->id)}}">Delete</a>
+                                    <a href="#">Update</a>
+                                </td>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
