@@ -20,7 +20,7 @@ use App\Http\Controllers\MarcaController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -52,6 +52,6 @@ Route::get('/auth/callback', function () {
     return redirect('/dashboard');
 });
 
-Route::resource('/marca', MarcaController::class);
+Route::resource('/marca', MarcaController::class)->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

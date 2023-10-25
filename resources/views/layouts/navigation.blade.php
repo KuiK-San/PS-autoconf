@@ -13,7 +13,13 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('Veiculos') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('marca.index')" :active="request()->routeIs('marca.index')">
+                        {{ __('Marcas') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('index')" :active="request()->routeIs('index')">
+                        {{ __('Modelos') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -67,9 +73,15 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
+            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                {{ __('Veiculos') }}
+            </x-nav-link>
+            <x-nav-link :href="route('marca.index')" :active="request()->routeIs('marca.index')">
+                {{ __('Marcas') }}
+            </x-nav-link>
+            <x-nav-link :href="route('index')" :active="request()->routeIs('index')">
+                {{ __('Modelos') }}
+            </x-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
