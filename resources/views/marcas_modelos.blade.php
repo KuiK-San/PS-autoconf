@@ -2,6 +2,7 @@
     
     <x-slot name="header" class="flex justify-between">
         <h2>Marcas</h2>
+        
     </x-slot>
     
     <div class="py-12">
@@ -17,11 +18,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($marcas as $marca)
-                                <td>{{$marca->id}}</td>
-                                <td>{{$marca->name}}</td>
+                            @foreach($registros as $registro)
+                                <td>{{$registro->id}}</td>
+                                <td>{{$registro->name}}</td>
                                 <td>
-                                    <a href="{{route('marca.destroy', $marca->id)}}">Delete</a>
+                                    <a href="{{route('marca.destroy', $registro->id)}}">Delete</a>
                                     <a href="#">Update</a>
                                 </td>
                             @endforeach

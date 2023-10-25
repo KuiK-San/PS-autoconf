@@ -12,7 +12,7 @@ class MarcaController extends Controller
      */
     public function index()
     {
-        return view('marcas', ['marcas'=>Marca::all()]);
+        return view('marcas_modelos', ['registros'=>Marca::all()]);
     }
 
     /**
