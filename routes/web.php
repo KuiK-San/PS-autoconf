@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\MarcaController;
  
 /*
 |--------------------------------------------------------------------------
@@ -50,5 +51,7 @@ Route::get('/auth/callback', function () {
  
     return redirect('/dashboard');
 });
+
+Route::resource('/marca', MarcaController::class);
 
 require __DIR__.'/auth.php';
