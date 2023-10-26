@@ -35,7 +35,9 @@
                                         Delete
                                     </button>
 
-                                    <button href="#">Update</button>
+                                    <button type="button" class="btn btn-primary text-bg-primary" data-bs-toggle="modal" data-bs-target="#updateModal" data-bs-id="{{ route('marca.update', $registro->id) }}" data-bs-name="{{ $registro->name }}">
+                                        Alterar
+                                    </button>
                                 </td>
                             </tr>
                             @endforeach
@@ -67,10 +69,58 @@
                 </div>
             </div>
         </div>
-    </div>""
+    </div>
+
+    <!-- UPDATE MODAL -->
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="updateModalLabel">Alterar Marca</h1>
+                    <button   button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="update" action="" method="POST">
+                        @csrf
+                        <input type="hidden" name="_method" value="PUT">
+                        <div class="mb-3">
+                            <label for="nomeUpdate" class="form-label">Nome da marca</label>
+                            <input type="text" class="form-control" name="name" id="nomeUpdate">
+                        </div>
+
+                        <div class="justify-content-end flex"><button type="submit" id=""  class="btn btn-primary text-bg-primary">Alterar</button></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary text-bg-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    
+                        
+                    
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-    <!-- SCRIPT DELETE -->
+    <!-- SCRIPT UPDATE -->
+    <script>
+        const exampleModal = document.getElementById('updateModal')
+        if (exampleModal) {
+            exampleModal.addEventListener('show.bs.modal', event => {
+                let botao = event.relatedTarget
+                let id = botao.getAttribute('data-bs-id')
+                let name = botao.getAttribute('data-bs-name')
+                
+                document.querySelector('#nomeUpdate').value = name
+                let deletar = document.querySelector('#update')
+                
+                deletar.setAttribute('action', id)
+                
+            })
+        }
+    </script>
+
+<!-- SCRIPT DELETE -->
     <script>
         const exampleModal = document.getElementById('deleteModal')
         if (exampleModal) {
@@ -84,7 +134,7 @@
             
             deletar.setAttribute('action', id)
 
-        })
+            })
         }
     </script>
 </x-app-layout>

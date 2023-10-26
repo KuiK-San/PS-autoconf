@@ -59,7 +59,12 @@ class MarcaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        
+        $marca = Marca::find($id);
+        $marca->name = $request->name;
+        $marca->save();
+
+        return redirect('/marca');
     }
 
     /**
