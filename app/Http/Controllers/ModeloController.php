@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Modelo;
 
 class ModeloController extends Controller
 {
@@ -11,7 +12,7 @@ class ModeloController extends Controller
      */
     public function index()
     {
-        //
+        return view('modelos', ['registros'=>Modelo::all()]);
     }
 
     /**
@@ -59,6 +60,6 @@ class ModeloController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        dd(Modelo::find($id));
     }
 }

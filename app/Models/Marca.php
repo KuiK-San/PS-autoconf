@@ -9,4 +9,7 @@ class Marca extends Model
 {
     use HasFactory;
 
+    public function modelo() {
+        return $this->hasMany(Modelo::class);
+    }
 }
