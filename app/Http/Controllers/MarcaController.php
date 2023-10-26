@@ -28,7 +28,14 @@ class MarcaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $marca = new Marca;
+
+        $marca->name = $request->name;
+
+        $marca->save();
+
+        return redirect('/marca');
+
     }
 
     /**
