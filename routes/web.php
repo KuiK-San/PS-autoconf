@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\MarcaController;
+use App\Http\Controllers\ModeloController;
  
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +38,7 @@ Route::get('/auth/redirect', function () {
 })->name('login.github');
  
 Route::get('/auth/callback', function () {
-    $githubUser = Socialite::driver('github')->user();
+    $githubUser = Socialite::driver('github')->stateless()->user();
  
      $user = User::updateOrCreate([
         'email' => $githubUser->email,
@@ -53,5 +54,6 @@ Route::get('/auth/callback', function () {
 });
 
 Route::resource('/marca', MarcaController::class)->middleware(['auth', 'verified']);
+Route::resource('/modelo', ModeloController::class)->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

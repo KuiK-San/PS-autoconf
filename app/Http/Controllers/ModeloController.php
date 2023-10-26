@@ -3,16 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Marca;
 
-class MarcaController extends Controller
+class ModeloController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('marcas', ['registros'=>Marca::all()]);
+        //
     }
 
     /**
