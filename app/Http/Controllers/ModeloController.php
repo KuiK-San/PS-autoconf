@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Modelo;
+use App\Models\Marca;
 
 class ModeloController extends Controller
 {
@@ -20,7 +21,7 @@ class ModeloController extends Controller
      */
     public function create()
     {
-        //
+        return view('create.modelo', ['registros'=> Marca::all()]);
     }
 
     /**
@@ -28,7 +29,14 @@ class ModeloController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $modelo = new Modelo;
+
+        $modelo->modelo = $request->modelo;
+        $modelo->marca_id = $request->marca_id;
+
+        $modelo->save();
+
+        return redirect()->route('modelo.index');
     }
 
     /**

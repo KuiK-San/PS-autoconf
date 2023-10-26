@@ -12,7 +12,7 @@
                     <form action="{{ route('marca.store') }}" method="post">
                         @csrf
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Insira a nova marca aqui" aria-label="Insira a nova marca aqui" name='name' aria-describedby="button-addon2">
+                            <input type="text" class="form-control rounded-start" placeholder="Insira a nova marca aqui" aria-label="Insira a nova marca aqui" name='name' aria-describedby="button-addon2">
                             <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Criar nova marca</button>
                         </div>
 
