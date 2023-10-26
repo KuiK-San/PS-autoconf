@@ -28,11 +28,14 @@
                         <tbody>
                             @foreach($registros as $registro)
                             <tr>
-                                <td>{{$registro->id}}</td>
-                                <td>{{$registro->name}}</td>
+                                <td>{{ $registro->id }}</td>
+                                <td>{{ $registro->name }}</td>
                                 <td>
-                                    <a href="{{route('marca.destroy', $registro->id)}}">Delete</a>
-                                    <a href="#">Update</a>
+                                    <button type="button" class="btn btn-primary text-bg-primary" data-bs-toggle="modal" data-bs-target="#deleteModal" data-bs-id="{{ route('marca.destroy', $registro->id) }}" data-bs-name="{{ $registro->name }}">
+                                        Delete
+                                    </button>
+
+                                    <button href="#">Update</button>
                                 </td>
                             </tr>
                             @endforeach
@@ -42,4 +45,46 @@
             </div>
         </div>
     </div>
+
+    <!-- MODAL DELETE -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="deleteModalLabel">Excluir Marca?</h1>
+                    <button   button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="text">Tem certeza que deseja excluir a Marca </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary text-bg-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <form id="delete" action="" method="post">
+                        @csrf
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" id=""  class="btn btn-primary text-bg-primary">Deletar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>""
+
+
+    <!-- SCRIPT DELETE -->
+    <script>
+        const exampleModal = document.getElementById('deleteModal')
+        if (exampleModal) {
+        exampleModal.addEventListener('show.bs.modal', event => {
+            let botao = event.relatedTarget
+            let id = botao.getAttribute('data-bs-id')
+            let name = botao.getAttribute('data-bs-name')
+
+            document.querySelector('#text').innerHTML = `Tem certeza que deseja excluir a marca ${name}`
+            let deletar = document.querySelector('#delete')
+            
+            deletar.setAttribute('action', id)
+
+        })
+        }
+    </script>
 </x-app-layout>

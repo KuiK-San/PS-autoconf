@@ -67,6 +67,8 @@ class MarcaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $delete = Marca::where('id', $id)->delete();
+
+        return redirect('/marca');
     }
 }
