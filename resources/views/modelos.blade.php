@@ -27,12 +27,12 @@
                                 <td>{{ $registro->modelo }}</td>
                                 <td>{{ $registro->marca->name }}</td>
                                 <td>
-                                    <button type="button" class="btn btn-primary text-bg-primary p-2" data-bs-toggle="modal" data-bs-target="#updateModal" data-bs-id="{{ route('marca.update', $registro->id) }}" data-bs-name="{{ $registro->name }}">
+                                    <button type="button" class="btn btn-primary text-bg-primary p-2" data-bs-toggle="modal" data-bs-target="#updateModal" data-bs-id="{{ route('modelo.update', $registro->id) }}" data-bs-name="{{ $registro->modelo }}" data-bs-marca_id="{{ $registro->marca->id }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                                             <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
                                         </svg>
                                     </button>
-                                    <button type="button" class="btn btn-primary text-bg-danger p-2 border-0" data-bs-toggle="modal" data-bs-target="#deleteModal" data-bs-id="{{ route('marca.destroy', $registro->id) }}" data-bs-name="{{ $registro->name }}">
+                                    <button type="button" class="btn btn-primary text-bg-danger p-2 border-0" data-bs-toggle="modal" data-bs-target="#deleteModal" data-bs-id="{{ route('modelo.destroy', $registro->id) }}" data-bs-name="{{ $registro->modelo }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
                                             <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
@@ -53,17 +53,17 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="deleteModalLabel">Excluir Marca?</h1>
+                    <h1 class="modal-title fs-5" id="deleteModalLabel">Excluir modelo?</h1>
                     <button   button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p id="text">Tem certeza que deseja excluir a Marca </p>
+                    <p id="text">Tem certeza que deseja excluir o modelo</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary text-bg-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <form id="delete" action="" method="post">
                         @csrf
-                        <input type="hidden" name="_method" value="DELETE">
+                        {{ method_field('DELETE') }} 
                         <button type="submit" id=""  class="btn btn-primary text-bg-primary">Deletar</button>
                     </form>
                 </div>
@@ -82,10 +82,19 @@
                 <div class="modal-body">
                     <form id="update" action="" method="POST">
                         @csrf
-                        <input type="hidden" name="_method" value="PUT">
+                        {{ method_field('PUT') }} 
                         <div class="mb-3">
-                            <label for="nomeUpdate" class="form-label">Nome da marca</label>
-                            <input type="text" class="form-control" name="name" id="nomeUpdate">
+                            <label for="modelo" class="form-label">Modelo</label>
+                            <input type="text" class="form-control rounded" id="modelo" placeholder="Insira aqui o modelo" name="modelo">
+                        </div>
+                        <div class="mb-3">
+                            <label for="marca_id" class="form-label">Marca</label>
+                            <select class="form-select" id="marca_id" name="marca_id">
+                                <option selected disabled>Selecione uma Marca</option>
+                                @foreach($marcas as $marca)
+                                    <option value="{{ $marca->id }}">{{ $marca->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="justify-content-end flex"><button type="submit" id=""  class="btn btn-primary text-bg-primary">Alterar</button></div>
@@ -104,14 +113,17 @@
 
     <!-- SCRIPT UPDATE -->
     <script>
-        const exampleModal = document.getElementById('updateModal')
-        if (exampleModal) {
-            exampleModal.addEventListener('show.bs.modal', event => {
+        const updateModal = document.getElementById('updateModal')
+        if (updateModal) {
+            updateModal.addEventListener('show.bs.modal', event => {
                 let botao = event.relatedTarget
                 let id = botao.getAttribute('data-bs-id')
                 let name = botao.getAttribute('data-bs-name')
-                
-                document.querySelector('#nomeUpdate').value = name
+                let marca_id = botao.getAttribute('data-bs-marca_id')
+
+                document.querySelector('#marca_id').value = marca_id
+                document.querySelector('#modelo').value = name
+
                 let deletar = document.querySelector('#update')
                 
                 deletar.setAttribute('action', id)
@@ -122,14 +134,14 @@
 
 <!-- SCRIPT DELETE -->
     <script>
-        const exampleModal = document.getElementById('deleteModal')
-        if (exampleModal) {
-        exampleModal.addEventListener('show.bs.modal', event => {
+        const deleteModal = document.getElementById('deleteModal')
+        if (deleteModal) {
+        deleteModal.addEventListener('show.bs.modal', event => {
             let botao = event.relatedTarget
             let id = botao.getAttribute('data-bs-id')
             let name = botao.getAttribute('data-bs-name')
 
-            document.querySelector('#text').innerHTML = `Tem certeza que deseja excluir a marca ${name}`
+            document.querySelector('#text').innerHTML = `Tem certeza que deseja o modelo ${name}`
             let deletar = document.querySelector('#delete')
             
             deletar.setAttribute('action', id)

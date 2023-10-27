@@ -68,7 +68,7 @@
                     <button type="button" class="btn btn-secondary text-bg-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <form id="delete" action="" method="post">
                         @csrf
-                        <input type="hidden" name="_method" value="DELETE">
+                        {{ method_field('DELETE') }} 
                         <button type="submit" id=""  class="btn btn-primary text-bg-primary">Deletar</button>
                     </form>
                 </div>
@@ -109,9 +109,10 @@
 
     <!-- SCRIPT UPDATE -->
     <script>
-        const exampleModal = document.getElementById('updateModal')
-        if (exampleModal) {
-            exampleModal.addEventListener('show.bs.modal', event => {
+        let updateModal = document.getElementById('updateModal')
+        if (updateModal) {
+            updateModal.addEventListener('show.bs.modal', event => {
+                console.log('123')
                 let botao = event.relatedTarget
                 let id = botao.getAttribute('data-bs-id')
                 let name = botao.getAttribute('data-bs-name')
@@ -125,11 +126,12 @@
         }
     </script>
 
-<!-- SCRIPT DELETE -->
+    <!-- SCRIPT DELETE -->
     <script>
-        const exampleModal = document.getElementById('deleteModal')
-        if (exampleModal) {
-        exampleModal.addEventListener('show.bs.modal', event => {
+        let deleteModal = document.getElementById('deleteModal')
+        if (deleteModal) {
+        deleteModal.addEventListener('show.bs.modal', event => {
+            console.log('123')
             let botao = event.relatedTarget
             let id = botao.getAttribute('data-bs-id')
             let name = botao.getAttribute('data-bs-name')

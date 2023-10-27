@@ -13,7 +13,7 @@ class ModeloController extends Controller
      */
     public function index()
     {
-        return view('modelos', ['registros'=>Modelo::all()]);
+        return view('modelos', ['registros'=>Modelo::all(), 'marcas'=>Marca::all()]);
     }
 
     /**
@@ -60,7 +60,13 @@ class ModeloController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $modelo = Modelo::find($id);
+        $modelo->modelo = $request->modelo;
+        $modelo->marca_id = $request->marca_id;
+
+        $modelo->save();
+
+        return redirect()->route('modelo.index');
     }
 
     /**
