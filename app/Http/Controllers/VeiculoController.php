@@ -3,17 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Veiculo;
 use App\Models\Modelo;
-use App\Models\Marca;
 
-class ModeloController extends Controller
+
+class VeiculoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('modelos', ['registros'=>Modelo::all(), 'marcas'=>Marca::all()]);
+        return view('veiculos', ['veiculos'=>Veiculo::all()]);
     }
 
     /**
@@ -21,7 +22,7 @@ class ModeloController extends Controller
      */
     public function create()
     {
-        return view('create.modelo', ['registros'=> Marca::all()]);
+        return view('create.veiculo', ['modelos'=>Modelo::all()]);
     }
 
     /**
@@ -29,14 +30,7 @@ class ModeloController extends Controller
      */
     public function store(Request $request)
     {
-        $modelo = new Modelo;
-
-        $modelo->modelo = $request->modelo;
-        $modelo->marca_id = $request->marca_id;
-
-        $modelo->save();
-
-        return redirect()->route('modelo.index');
+        //
     }
 
     /**
@@ -60,13 +54,7 @@ class ModeloController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $modelo = Modelo::find($id);
-        $modelo->modelo = $request->modelo;
-        $modelo->marca_id = $request->marca_id;
-
-        $modelo->save();
-
-        return redirect()->route('modelo.index');
+        //
     }
 
     /**
@@ -74,7 +62,6 @@ class ModeloController extends Controller
      */
     public function destroy(string $id)
     {
-        $delete = Modelo::where('id', $id)->delete();
-        return redirect()->route('modelo.index');
+        //
     }
 }

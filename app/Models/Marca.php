@@ -12,4 +12,8 @@ class Marca extends Model
     public function modelo() {
         return $this->hasMany(Modelo::class);
     }
+
+    public function veiculo() {
+        return $this->hasMany(Veiculo::class);
+    }
 }

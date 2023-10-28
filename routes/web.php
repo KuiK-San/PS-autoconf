@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\ModeloController;
+use App\Http\Controllers\VeiculoController;
  
 /*
 |--------------------------------------------------------------------------
@@ -55,5 +56,6 @@ Route::get('/auth/callback', function () {
 
 Route::resource('/marca', MarcaController::class)->middleware(['auth', 'verified']);
 Route::resource('/modelo', ModeloController::class)->middleware(['auth', 'verified']);
+Route::resource('/veiculo', VeiculoController::class)->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';
