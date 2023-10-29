@@ -25,7 +25,7 @@
                         <tbody>
                             @foreach($veiculos as $veiculo)
                             <tr>
-                                <td><img src="{{ url($veiculo->path) }}" alt="" class="" style="max-width: 150px;"></td>
+                                <td><img src="{{ url('images/'.$veiculo->path) }}" alt="" class="" style="max-width: 150px;"></td>
                                 <td>{{ $veiculo->veiculo }}</td>
                                 <td>{{ $veiculo->modelo->modelo }}</td>
                                 <td>{{ $veiculo->marca->name }}</td>

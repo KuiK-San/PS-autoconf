@@ -16,7 +16,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="marca_id" class="form-label">Marca</label>
-                        <select class="form-select" name="marca_id">
+                        <select class="form-select border border-secondary" name="marca_id">
                             <option selected disabled>Selecione uma Marca</option>
                             @foreach($registros as $registro)
                                 <option value="{{ $registro->id }}">{{ $registro->name }}</option>

@@ -30,7 +30,28 @@ class VeiculoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $request->validate([
+            'imagem' => 'required|image|mimes:png,jpg,jpeg|max:2048'
+        ]);
+
+        $imageName = time().'.'.$request->imagem->extension();
+
+        $request->imagem->move(public_path('images'), $imageName);
+
+        $veiculo = new Veiculo;
+
+        $veiculo->veiculo = $request->veiculo;
+        $veiculo->preco = $request->preco;
+        $veiculo->path = $imageName;
+        $veiculo->modelo_id = $request->modelo_id;
+
+        $modelo = Modelo::find($request->modelo_id);
+        $veiculo->marca_id = $modelo->marca_id;
+        $veiculo->save();
+
+        return redirect()->route('veiculo.index');
+        
     }
 
     /**
@@ -62,6 +83,8 @@ class VeiculoController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Veiculo::where('id', $id)->delete();
+        
+        return redirect()->route('veiculo.index');
     }
 }
