@@ -61,13 +61,13 @@ class VeiculoController extends Controller
     {
         //
     }
-
+    
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        //
+        return view('update.veiculo', ['modelos'=>Modelo::all(), 'veiculo'=>Veiculo::find($id)] );
     }
 
     /**
@@ -75,7 +75,32 @@ class VeiculoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $veiculo = Veiculo::find($id);
+
+        if($request->imagem){
+            $request->validate([
+                'imagem' => 'image|mimes:png,jpg,jpeg|max:2048'
+            ]);
+    
+            $imageName = time().'.'.$request->imagem->extension();
+    
+            $request->imagem->move(public_path('images'), $imageName);
+            $veiculo->path = $imageName;
+        }else{
+            $veiculo->path = 'Marcelo';
+        }
+
+
+        $veiculo->veiculo = $request->veiculo;
+        $veiculo->preco = $request->preco;
+        $veiculo->modelo_id = $request->modelo_id;
+
+        $modelo = Modelo::find($request->modelo_id);
+        $veiculo->marca_id = $modelo->marca_id;
+        $veiculo->save();
+
+        return redirect()->route('veiculo.index');
+        
     }
 
     /**
@@ -84,7 +109,7 @@ class VeiculoController extends Controller
     public function destroy(string $id)
     {
         Veiculo::where('id', $id)->delete();
-        
+
         return redirect()->route('veiculo.index');
     }
 }
