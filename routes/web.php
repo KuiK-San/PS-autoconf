@@ -25,8 +25,8 @@ Route::get('/', function () {
 })->name('index');
 
 Route::get('/dashboard', function () {
-    return redirect()->route('marca.index');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    return redirect()->route('veiculo.index');
+})->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
